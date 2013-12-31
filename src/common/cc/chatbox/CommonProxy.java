@@ -52,6 +52,7 @@ public class CommonProxy {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void chatToAll(ChatMessageComponent message) {
         List<EntityPlayerMP> players = (List<EntityPlayerMP>)MinecraftServer.getServer().getConfigurationManager().playerEntityList;
 
