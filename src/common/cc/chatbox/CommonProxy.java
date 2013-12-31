@@ -1,5 +1,6 @@
 package cc.chatbox;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -68,5 +69,9 @@ public class CommonProxy {
         }
 
         player.sendChatToPlayer(message);
+    }
+
+    public List<String> getCurrentPlayers() {
+        return Arrays.asList(MinecraftServer.getServer().getConfigurationManager().getAllUsernames());
     }
 }

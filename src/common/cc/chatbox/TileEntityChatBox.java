@@ -3,6 +3,8 @@ package cc.chatbox;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatMessageComponent;
@@ -13,9 +15,41 @@ import dan200.computer.api.IPeripheral;
 
 public class TileEntityChatBox extends TileEntity implements IPeripheral {
     public List<IComputerAccess> connectedComputers = new ArrayList<IComputerAccess>();
+    public Set<String> knownPlayers = new HashSet<String>();
+    public int nextUpdateTimer = 20;
 
     public TileEntityChatBox() {
         super();
+    }
+
+    @Override
+    public void updateEntity() {
+        nextUpdateTimer -= 1;
+        if(nextUpdateTimer <= 0) {
+            nextUpdateTimer = 20;
+            updateKnownPlayersAndRaiseEvents();
+        }
+    }
+
+    public void updateKnownPlayersAndRaiseEvents() {
+        List<String> players = ChatBox.proxy.getCurrentPlayers();
+
+        for(String p: players) {
+            if(!knownPlayers.contains(p)) {
+                raiseNewPlayerEvent(p);
+            }
+        }
+
+        knownPlayers.addAll(players);
+        knownPlayers.retainAll(players);
+    }
+
+    public void raiseNewPlayerEvent(String username) {
+        Object[] eventArgs = { null, username };
+        for(IComputerAccess computer: connectedComputers) {
+            eventArgs[0] = computer.getAttachmentName();
+            computer.queueEvent("player_login", eventArgs);
+        }
     }
 
 // public interface IPeripheral {
@@ -55,12 +89,14 @@ public class TileEntityChatBox extends TileEntity implements IPeripheral {
         return (Object[]) method.invoke(this, new Object[]{computer, arguments});
     }
 
-    @Override public void attach(IComputerAccess computer) {
-        System.out.println("Attached to computer " + computer.getID() + " on side " + computer.getAttachmentName());
+    @Override
+    public void attach(IComputerAccess computer) {
+        connectedComputers.add(computer);
     }
 
-    @Override public void detach(IComputerAccess computer) {
-        System.out.println("Detached from computer " + computer.getID() + " on side " + computer.getAttachmentName());
+    @Override
+    public void detach(IComputerAccess computer) {
+        connectedComputers.remove(computer);
     }
 // }
 
