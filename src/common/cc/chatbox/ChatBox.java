@@ -17,7 +17,7 @@ import net.minecraftforge.common.Configuration;
             clientSideRequired=true,
             versionBounds="%conf:VERSION_BOUNDS%")
 public class ChatBox {
-    @SidedProxy(clientSide="cc.chatbox.CommonProxy",
+    @SidedProxy(clientSide="cc.chatbox.ClientProxy",
                 serverSide="cc.chatbox.CommonProxy")
     public static CommonProxy proxy;
 

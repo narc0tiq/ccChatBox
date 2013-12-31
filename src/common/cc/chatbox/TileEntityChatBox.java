@@ -24,6 +24,8 @@ public class TileEntityChatBox extends TileEntity implements IPeripheral {
 
     @Override
     public void updateEntity() {
+        if(isInvalid()) { return; }
+
         nextUpdateTimer -= 1;
         if(nextUpdateTimer <= 0) {
             nextUpdateTimer = 20;
