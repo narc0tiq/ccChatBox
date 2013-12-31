@@ -1,0 +1,10 @@
+[
+  {
+    "modid": "ccChatBox",
+    "name": "CC Chat Box Peripheral",
+    "version": "%conf:VERSION%",
+    "description": "An addon for ComputerCraft to let you speak to server-wide chat.",
+    "authors": [ "narc0tiq" ],
+    "url": "https://github.com/narc0tiq/ccChatBox"
+  }
+]
