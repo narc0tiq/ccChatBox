@@ -1,6 +1,11 @@
 package cc.chatbox;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatMessageComponent;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -45,5 +50,22 @@ public class CommonProxy {
         for(String lang: languages) {
             lr.loadLocalization(langDir + lang + ".xml", lang, true);
         }
+    }
+
+    public void chatToAll(ChatMessageComponent message) {
+        List<EntityPlayerMP> players = (List<EntityPlayerMP>)MinecraftServer.getServer().getConfigurationManager().playerEntityList;
+
+        for(EntityPlayerMP p: players) {
+            p.sendChatToPlayer(message);
+        }
+    }
+
+    public void chatToPlayer(String username, ChatMessageComponent message) {
+        EntityPlayerMP player = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(username);
+        if(player == null) {
+            return;
+        }
+
+        player.sendChatToPlayer(message);
     }
 }
