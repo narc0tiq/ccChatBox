@@ -1,5 +1,5 @@
 **ccChatBox** is a [Minecraft](http://minecraft.net) addon for
-[ComputerCraft](http://computercraft.info/) that adds a "peripheral" block
+[ComputerCraft](http://computercraft.info/) that adds a peripheral block
 which allows CC computers to interact with server-wide chat.
 
 
@@ -16,7 +16,9 @@ project dependency. The former is probably easier.
 
 ## Jenkins Builds ##
 
-Not yet.
+Builds for Minecraft 1.6 live at
+<http://ci.narc.ro/view/Forge-1.6/job/ccChatBox-1.6/>. Any later supported
+versions will probably get their own job.
 
 
 ## License ##
