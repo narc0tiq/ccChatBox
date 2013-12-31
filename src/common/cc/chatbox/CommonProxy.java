@@ -1,20 +1,28 @@
 package cc.chatbox;
 
+import net.minecraft.item.ItemBlock;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 import net.minecraftforge.common.Configuration;
 
 public class CommonProxy {
+    public int chatBoxBlockID = 1898;
+    public BlockChatBox chatBoxBlock;
+    public static final String NAME_CHAT_BOX = "cc.chatbox";
+
     public void init(Configuration config) {
         initConfig(config);
-        initLanguage();
+        initBlocks();
+        initLocales();
     }
 
     public void initConfig(Configuration config) {
         try { config.load(); }
         catch(RuntimeException e) { /* and ignore it. We'll just regen the config. */ }
 
-        // TODO: Config stuff here.
+        chatBoxBlockID = config.getBlock("chatBox", chatBoxBlockID).getInt(chatBoxBlockID);
 
         try { config.save(); }
         catch(RuntimeException e) {
@@ -23,7 +31,13 @@ public class CommonProxy {
         }
     }
 
-    public void initLanguage() {
+    public void initBlocks() {
+        chatBoxBlock = new BlockChatBox(chatBoxBlockID);
+        GameRegistry.registerBlock(chatBoxBlock, ItemBlock.class, NAME_CHAT_BOX);
+        GameRegistry.registerTileEntity(TileEntityChatBox.class, NAME_CHAT_BOX);
+    }
+
+    public void initLocales() {
         String langDir = "/lang/";
         String[] languages = { "en_US" };
         LanguageRegistry lr = LanguageRegistry.instance();

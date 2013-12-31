@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <!-- <entry key="tile.someblock.name">Some Block</entry> -->
+    <entry key="tile.cc.chatbox.name">Chat Box Peripheral</entry>
 </properties>
