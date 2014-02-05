@@ -10,7 +10,7 @@ To compile this mod, you will need a working MCP + Forge +
 [MCPInterface](https://github.com/FunnyMan3595/mcp_interface) plugged in.
 Instructions for that are in the README.txt files provided in the projects.
 
-You will also need to provide Tinker's Construct, either as a library or as a
+You will also need to provide ComputerCraft, either as a library or as a
 project dependency. The former is probably easier.
 
 
